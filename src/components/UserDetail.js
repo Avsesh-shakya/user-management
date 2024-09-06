@@ -7,10 +7,16 @@ const UserDetail = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://jsonplaceholder.typicode.com/users/ ${id}`)
-      .then(response => setUser(response.data))
-      .catch(error => console.log(error));
-  }, []);
+    if (id) {
+      axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+        .then(response => {
+          setUser(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching user:', error);
+        });
+    }
+  }, [id]);
 
   if (!user) return <div>Loading...</div>;
 
